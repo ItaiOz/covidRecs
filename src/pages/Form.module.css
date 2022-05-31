@@ -1,0 +1,66 @@
+.registrationForm {
+  padding: 1rem 4rem;
+}
+
+p {
+  color: red;
+}
+
+.formButton {
+  cursor: pointer;
+  border: 1px solid #4488af;
+  background-color: #4488af;
+  color: white;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+}
+
+.formButton:hover {
+  border: 1px solid #3a6aa7;
+  background-color: #3a6aa7;
+}
+.input__section {
+  /* margin: 1.5rem 1rem; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.checkbox__section {
+  display: flex;
+  margin: 1em 0em;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.checkbox_diseases__elems {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 0.35rem;
+}
+
+.registrationInput:not(input[type="checkbox"]) {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 15rem;
+  max-width: 100%;
+  height: 1.2rem;
+}
+
+.registrationInput[type="checkbox"] {
+  width: 2rem;
+  height: 1.2rem;
+  padding: 0.5rem;
+}
+select {
+  font: inherit;
+  /* margin: 10px; */
+  /* padding: 0.5rem; */
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 16.2rem;
+  max-width: 100%;
+  height: 2.3rem;
+}

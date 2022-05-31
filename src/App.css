@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  background-color: rgb(222, 222, 222);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  width: 90%;
+  max-width: 70rem;
+  text-align: center;
+  background-color: rgb(222, 222, 222);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+section {
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* align-self: center; */
+  /* margin: 1rem auto; */
+  /* width: 90%; */
+  /* max-width: 70rem; */
+  /* text-align: center; */
+  /* background-color: rgb(222, 222, 222); */
+  /* padding: 2rem; */
+  /* border-radius: 12px; */
+}
