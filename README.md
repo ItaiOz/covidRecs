@@ -1,6 +1,6 @@
-## A small app that combines Frontend developing in React, Backend in Django and using if postgresql
+### A small app that combines Frontend developing in React, Backend in Django and using postgresql
 
-### Installation
+#### Installation
 
 1 - Clone repository
 2 - On terminal, open project's direcory and run npm / yarn install
