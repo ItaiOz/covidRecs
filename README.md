@@ -1,6 +1,6 @@
-### A small app that combines Frontend developing in React, Backend in Django and using postgresql
+### An app that combines Frontend developing in React, Backend in Django and using postgresql
 
-#### Installation
+### Installation
 
 1 - Clone repository
 
