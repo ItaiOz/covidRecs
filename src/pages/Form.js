@@ -1,50 +1,21 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-// import FormUtils from "../assets/FormUtils";
-import moment from "moment";
+import { sum, validate } from "../assets/FormUtils";
+import { prevDiseases, initialValues } from "../assets/FormAssets";
+// import ErrorModal from "./UI/ErrorModal";
+import ErrorModal from "../components/UI/ErrorModal";
 import classes from "./Form.module.css";
-
-const cities = [
-  "Choose A City",
-  "New York",
-  "Los Angeles",
-  "Sydney",
-  "Melbourne",
-  "Berlin",
-  "London",
-];
-
-let prevDiseases = [
-  { Disease: "Diabetes", status: false },
-  { Disease: "Cardio-Vascular Problems", status: false },
-  { Disease: "Allergies", status: false },
-  { Disease: "Other", status: false },
-];
-
-const initialValues = {
-  FirstName: "",
-  LastName: "",
-  DateOfBirth: "",
-  Address: "",
-  City: "",
-  Zipcode: "",
-  LandLine: "",
-  CellPhone: "",
-  Infected: false,
-  previousDiseases: "",
-};
 
 const Form = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [error, setError] = useState();
   const history = useHistory();
 
+  const temp = sum();
+  console.log(temp);
   new Array(prevDiseases.length).fill(false);
-
-  const citiesList = cities.map((city) => (
-    <option key={Math.random()}>{city}</option>
-  ));
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -73,24 +44,6 @@ const Form = () => {
     setFormValues({ ...formValues, previousDiseases: disStr });
   };
 
-  const validate = (values) => {
-    const errors = {};
-    let phoneRegex = /^\d+$/;
-
-    if (!values.FirstName) errors.FirstName = "First name is required!";
-    if (!values.LastName) errors.LastName = "Last name is required!";
-
-    if (!values.DateOfBirth) errors.DateOfBirth = "Date is required!";
-    else if (!moment(values.DateOfBirth, "YYYY-MM-DD").isValid())
-      errors.DateOfBirth = "Date is not valid!";
-
-    if (!values.CellPhone) errors.CellPhone = "Phone number is required!";
-    else if (!phoneRegex.test(values.CellPhone))
-      errors.CellPhone = "Phone number must include numbers only!";
-
-    return errors;
-  };
-
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       const requestOptions = {
@@ -101,22 +54,32 @@ const Form = () => {
       fetch("http://127.0.0.1:8000/records", requestOptions)
         .then((response) => {
           if (!response.ok) throw new Error("Error on data");
-          // const data = response.json();
           console.log(response);
           history.push("/summary");
-          // <Link to='/summary'></Link>
         })
         .catch((err) => {
-          //show error on form (error modal???)
-          console.log("its an error im telling yaaaa");
-          console.log(err);
-          throw new Error(err);
+          setError({
+            title: "Error",
+            message: "Error on submitting form, please try again later",
+          });
+          return;
         });
     }
   }, [formErrors]);
 
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
     <main>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <form onSubmit={submitHandler} className={classes.registrationForm}>
         <div className={classes.input__section}>
           <div>
@@ -160,9 +123,12 @@ const Form = () => {
         </div>
         <div className={classes.input__section}>
           <div>
-            <select name="City" value={formValues.City} onChange={handleChange}>
-              {citiesList}
-            </select>
+            <input
+              className={classes.registrationInput}
+              name="City"
+              placeholder="City"
+              onChange={handleChange}
+            ></input>
             <p></p>
           </div>
           <div>

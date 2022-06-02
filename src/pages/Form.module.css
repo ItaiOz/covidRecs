@@ -56,8 +56,6 @@ p {
 }
 select {
   font: inherit;
-  /* margin: 10px; */
-  /* padding: 0.5rem; */
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 16.2rem;
