@@ -1,10 +1,5 @@
 import moment from "moment";
 
-export const sum = () => {
-  console.log("im in export file");
-  return 14;
-};
-
 export const validate = (values) => {
   const errors = {};
   let phoneRegex = /^\d+$/;
@@ -21,4 +16,20 @@ export const validate = (values) => {
     errors.CellPhone = "Phone number must include numbers only!";
 
   return errors;
+};
+
+export const getObject = (customer) => {
+  return {
+    id: customer.RecordId,
+    firstName: customer.FirstName,
+    lastName: customer.LastName,
+    DOB: customer.DateOfBirth,
+    address: customer.Address,
+    city: customer.City,
+    zipCode: customer.Zipcode,
+    landLine: customer.LandLine,
+    cellPhone: customer.CellPhone,
+    infected: customer.Infected,
+    prevDiseases: customer.previousDiseases,
+  };
 };

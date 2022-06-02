@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { sum, validate } from "../assets/FormUtils";
+import { validate } from "../assets/Utils";
 import { prevDiseases, initialValues } from "../assets/FormAssets";
-// import ErrorModal from "./UI/ErrorModal";
 import ErrorModal from "../components/UI/ErrorModal";
 import classes from "./Form.module.css";
 
@@ -13,8 +12,6 @@ const Form = () => {
   const [error, setError] = useState();
   const history = useHistory();
 
-  const temp = sum();
-  console.log(temp);
   new Array(prevDiseases.length).fill(false);
 
   const handleChange = (e) => {
@@ -57,7 +54,7 @@ const Form = () => {
           console.log(response);
           history.push("/summary");
         })
-        .catch((err) => {
+        .catch(() => {
           setError({
             title: "Error",
             message: "Error on submitting form, please try again later",

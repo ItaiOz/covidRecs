@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomersList from "../components/CustomersList";
 import TasksBar from "../components/TasksBar";
+import { getObject } from "../assets/Utils";
 
 const Summary = () => {
   const [customers, setCustomers] = useState([]);
@@ -13,25 +14,15 @@ const Summary = () => {
       .then((response) => {
         if (!response.ok) throw response;
 
-        // console.log(response);
         return response.json();
       })
       .then((data) => {
         let loadedCustomers = [];
-        for (const customer in data)
-          loadedCustomers.push({
-            id: data[customer].RecordId,
-            firstName: data[customer].FirstName,
-            lastName: data[customer].LastName,
-            DOB: data[customer].DateOfBirth,
-            address: data[customer].Address,
-            city: data[customer].City,
-            zipCode: data[customer].Zipcode,
-            landLine: data[customer].LandLine,
-            cellPhone: data[customer].CellPhone,
-            infected: data[customer].Infected,
-            prevDiseases: data[customer].previousDiseases,
-          });
+        let newCustomer;
+        for (const customer in data) {
+          newCustomer = getObject(data[customer]);
+          loadedCustomers.push(newCustomer);
+        }
         setCustomers(loadedCustomers);
         setIsError(false);
         setIsLoading(false);
@@ -39,7 +30,6 @@ const Summary = () => {
       .catch((err) => {
         setIsLoading(false);
         setIsError(true);
-        //show error on form (error modal???)
         console.log(err);
         throw new Error(err);
       });
